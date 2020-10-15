@@ -1,6 +1,6 @@
 # "to PDF" as a service
 
-A simple web service that transforms the given document into a PDF file. 
+A simple web service that transforms the given document into a PDF file.
 
 Run with `docker run -p 8080:8080 gcr.io/nikhilbarthwal-knative/pdf`
 

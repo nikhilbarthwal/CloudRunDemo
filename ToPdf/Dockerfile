@@ -11,4 +11,4 @@ COPY . $APP_HOME
 # prevent libreoffice from querying ::1 (ipv6 ::1 is rejected until istio 1.1)
 RUN mkdir -p /etc/cups && echo "ServerName 127.0.0.1" > /etc/cups/client.conf
 
-CMD ["python", "to-pdf.py"]
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 app:app
