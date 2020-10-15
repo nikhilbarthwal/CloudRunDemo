@@ -20,5 +20,5 @@ spec:
   template:
     spec:
       containers:
-        - image: gcr.io/nikhilbarthwal-knative/helloworld
+        - image: gcr.io/nikhilbarthwal-cloudrun-demo/hello-world
 
