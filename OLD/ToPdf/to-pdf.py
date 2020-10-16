@@ -3,7 +3,6 @@ import shutil
 import requests
 import tempfile
 
-from gevent.pywsgi import WSGIServer
 from flask import Flask, after_this_request, render_template, request, send_file
 from subprocess import call
 
@@ -26,11 +25,11 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def api():
-    work_dir = tempfile.TemporaryDirectory()
+    work_dir = tempfile.gettempdir()
     file_name = 'document'
-    input_file_path = os.path.join(work_dir.name, file_name)
+    input_file_path = os.path.join(work_dir, file_name)
     # Libreoffice is creating files with the same name but .pdf extension
-    output_file_path = os.path.join(work_dir.name, file_name + '.pdf')
+    output_file_path = os.path.join(work_dir, file_name + '.pdf')
 
     if request.method == 'POST':
         # check if the post request has the file part
@@ -52,16 +51,16 @@ def api():
             shutil.copyfileobj(response.raw, file)
         del response
 
-    convert_file(work_dir.name, input_file_path)
+    convert_file(work_dir, input_file_path)
 
     @after_this_request
     def cleanup(response):
-        work_dir.cleanup()
+        if os.path.exists(input_file_path):
+            os.remove(input_file_path)
         return response
- 
+
     return send_file(output_file_path, mimetype='application/pdf')
 
 
 if __name__ == "__main__":
-    http_server = WSGIServer(('', int(os.environ.get('PORT', 8080))), app)
-    http_server.serve_forever()
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

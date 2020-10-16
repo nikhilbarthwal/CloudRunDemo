@@ -1,8 +1,8 @@
 # "to PDF" as a service
 
-A simple web service that transforms the given document into a PDF file. 
+A simple web service that transforms the given document into a PDF file.
 
-Run with `docker run -p 8080:8080 gcr.io/as-a-service-dev/pdf`
+Run with `docker run -p 8080:8080 gcr.io/nikhilbarthwal-knative/pdf`
 
 ### URL parameters:
 
@@ -16,10 +16,10 @@ Run with `docker run -p 8080:8080 gcr.io/as-a-service-dev/pdf`
 
 ## Deploy to your server
 
-The following container image always reflects the latest version of the `master` branch of this repo: `gcr.io/as-a-service-dev/pdf`
+The following container image always reflects the latest version of the `master` branch of this repo: `gcr.io/nikhilbarthwal-knative/pdf`
 
 ## Deploy to Google Cloud
 
 [![Run on Google Cloud](https://storage.googleapis.com/cloudrun/button.svg)](https://deploy.cloud.run)
 
-Or use `gcloud beta run deploy --image gcr.io/as-a-service-dev/pdf`
+Or use `gcloud beta run deploy --image gcr.io/nikhilbarthwal-knative/pdf`
